@@ -6,7 +6,7 @@
 #    By: edribeir <edribeir@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/21 09:47:58 by edribeir      #+#    #+#                  #
-#    Updated: 2023/11/21 09:47:59 by edribeir      ########   odam.nl          #
+#    Updated: 2023/11/22 11:53:46 by edribeir      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,8 @@ all:
 	$(NAME)
 
 $(NAME): $(OBJECTS)
-	cp $(Libft) $(NAME)
-	$(AR) $(NAME) $(OBJECTS)
+	cp $(LIBFT) $(NAME)
+	$(AR) $(NAME) $(OBJECTS) $(LIBFT)
 
 $(LIBFT):
 	$(MAKE) -C ./Libft

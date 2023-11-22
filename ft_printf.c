@@ -6,7 +6,7 @@
 /*   By: edribeir <edribeir@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 09:48:24 by edribeir      #+#    #+#                 */
-/*   Updated: 2023/11/21 11:58:03 by edribeir      ########   odam.nl         */
+/*   Updated: 2023/11/22 13:39:34 by edribeir      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,3 @@ int	ft_printf(const char *format, ...)
 	write_return = write(1, &str, ft_strlen(str));
 	return (write_return);
 }
-
-("%d %x %X %s\n hello", x, y, z, str)

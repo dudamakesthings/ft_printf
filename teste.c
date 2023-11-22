@@ -1,6 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   teste.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: edribeir <edribeir@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/11/22 10:23:11 by edribeir      #+#    #+#                 */
+/*   Updated: 2023/11/22 15:54:02 by edribeir      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
+
+
 
 size_t	ft_strlen(const char *str)
 {
@@ -11,6 +25,7 @@ size_t	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
+
 void	ft_putstr_fd(char *s, int fd)
 {
 	write(fd, s, ft_strlen(s));
@@ -47,29 +62,55 @@ void	ft_putnbr_fd(int n, int fd)
 
 void function_test(char *arg, ...)
 {
-	va_list ap;
-	int d;
-	int c;
-	char *s;
+	va_list	ap;
+	int		d;
+	int		c;
+	char	*s;
 
 	va_start(ap, arg);
-	while(*arg != '\0')
+	while (*arg != '\0')
 	{
-		if(*arg == 'c')
+		if (*arg == '%')
 		{
-			c = va_arg(ap, int);
-			write(1, &c, 1);
+			arg++;
+			if (*arg == '%')
+				ft_putchar_fd('%', 1);
+			if (*arg == 'c')
+			{
+				c = va_arg(ap, int);
+				write(1, &c, 1);
+			}
+			if (*arg == 'd' | *arg == 'i')
+			{
+				d = va_arg(ap, int);
+				ft_putnbr_fd(d, 1);
+			}
+			if (*arg == 's')
+			{
+				s = va_arg(ap, char *);
+				ft_putstr_fd(s, 1);
+			}
+			// if (*arg == 'X')
+			// {
+			// 	X = va_arg(ap, int);
+			// }
+			// if (*arg == 'x')
+			// {
+			// 	x = va_arg(ap, int);
+			// }
+			// if (*arg == 'p')
+			// {
+			// 	p = va_arg(ap, void *);
+			// }
+			// if (*arg == 'u')
+			// {
+			// 	u = va_arg(ap, unsigned int);
+			// }
 		}
-		if(*arg == 'd')
-		{
-			d = va_arg(ap, int);
-			ft_putnbr_fd(d, 1);
-		}
-		if(*arg == 's')
-		{
-			s = va_arg(ap, char *);
-			ft_putstr_fd(s, 1);
-		}
+		else if (*arg == '\n')
+			write (1, "\n", 2);
+		else
+			ft_putchar_fd(*arg, 1);
 		arg++;
 	}
 	va_end(ap);
@@ -77,7 +118,10 @@ void function_test(char *arg, ...)
 
 int main()
 {
-	function_test("ccd", 'a', 'b', 3);
-	function_test("ccds", 'a', 'b', 3, "bla");
-	//function_test("ble%c%c%d%sbla", 'a', 'b', 3, "foo");
+	function_test("%c%c%d%c\n", 'a', 'b', 3, '%');
+	function_test("%c%c%d%s\n", 'a', 'b', 3, "bla");
+	function_test("ble%c%c%i%sbla%%", 'a', 'b', 120, "foo");
+	function_test("\n%%\n");
+	printf("ble%c%c%i%sbla%%\n", 'a', 'b', 120, "foo");
+	printf("%%\n");
 }
