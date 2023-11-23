@@ -1,45 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_convert_to_hex.c                                :+:    :+:            */
+/*   ft_print_unsigned.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: edribeir <edribeir@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/11/22 13:25:58 by edribeir      #+#    #+#                 */
-/*   Updated: 2023/11/23 10:59:24 by edribeir      ########   odam.nl         */
+/*   Created: 2023/11/23 11:01:25 by edribeir      #+#    #+#                 */
+/*   Updated: 2023/11/23 12:02:18 by edribeir      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int nb_long(unsigned int n)
+static	int	nb_len(unsigned int nb)
 {
-	int	count;
+	unsigned int	len;
 
-	count = 0;
-	while (n > 0)
+	len = 0;
+	if (nb <= 0)
+		len++;
+	while (nb > 0)
 	{
-		n = n / 16;
-		count++;
+		nb = nb / 10;
+		len++;
 	}
-	return (count);
+	return (len);
 }
 
-char ft_convert_to_hex(unsigned long n, char *base)
+char	ft_utoa(unsigned int nb)
 {
-	char			*hex;
-	unsigned int	count;
+	char			*str_number;
+	unsigned int	len;
 
-	count = nb_long(n);
-	hex = (char *)malloc((count + 1) * sizeof(char));
-	if (hex == NULL)
+	len = nb_len(nb);
+	str_number = malloc((len + 1) * sizeof(char));
+	if (str_number == NULL)
 		return (NULL);
-	hex[count] = '\0';
-	while (n > 0)
+	str_number[len] = '\0';
+	if (nb == 0)
+		str_number[0] = '0';
+	while (nb > 0)
 	{
-		hex[count - 1] = base[n % 16];
-		n = n / 16;
-		count--;
+		str_number[len - 1] = (nb % 10) + '0';
+		nb = nb / 10;
 	}
-	return (hex);
+	return (str_number);
 }
+

@@ -6,13 +6,14 @@
 /*   By: edribeir <edribeir@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/22 10:23:11 by edribeir      #+#    #+#                 */
-/*   Updated: 2023/11/22 15:54:02 by edribeir      ########   odam.nl         */
+/*   Updated: 2023/11/23 11:54:19 by edribeir      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
+#include "ft_printf.h"
 
 
 
@@ -60,12 +61,13 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 }
 
-void function_test(char *arg, ...)
+void	function_test(char *arg, ...)
 {
-	va_list	ap;
-	int		d;
-	int		c;
-	char	*s;
+	va_list			ap;
+	int				d;
+	int				c;
+	char			*s;
+	// unsigned int	u;
 
 	va_start(ap, arg);
 	while (*arg != '\0')
@@ -105,6 +107,7 @@ void function_test(char *arg, ...)
 			// if (*arg == 'u')
 			// {
 			// 	u = va_arg(ap, unsigned int);
+			// 	ft_putstr_fd(ft_utoi(u), 1);
 			// }
 		}
 		else if (*arg == '\n')
@@ -120,8 +123,8 @@ int main()
 {
 	function_test("%c%c%d%c\n", 'a', 'b', 3, '%');
 	function_test("%c%c%d%s\n", 'a', 'b', 3, "bla");
-	function_test("ble%c%c%i%sbla%%", 'a', 'b', 120, "foo");
+	function_test("ble%c%c%i%sbla%%%u", 'a', 'b', 120, "foo", 111);
 	function_test("\n%%\n");
-	printf("ble%c%c%i%sbla%%\n", 'a', 'b', 120, "foo");
+	printf("ble%c%c%i%sbla%%%u\n", 'a', 'b', 120, "foo", 111);
 	printf("%%\n");
 }
