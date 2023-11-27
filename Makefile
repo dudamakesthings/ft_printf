@@ -6,13 +6,15 @@
 #    By: edribeir <edribeir@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/21 09:47:58 by edribeir      #+#    #+#                  #
-#    Updated: 2023/11/22 11:53:46 by edribeir      ########   odam.nl          #
+#    Updated: 2023/11/27 19:25:53 by edribeir      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-LIBFT = ./Libft/libft.a
+LIBFT = Libft/libft.a
+
+LIBFTDIR = Libft
 
 CC = cc
 
@@ -23,30 +25,31 @@ RM = rm -f
 AR = ar -rsc
 
 SOURCE = ft_printf.c \
+			ft_print_hex.c \
+			ft_print_unsigned.c \
 		
 
 OBJECTS = $(SOURCE:%.c=%.o)
 
-all: 
-	$(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJECTS)
+$(LIBFT):
+	$(MAKE) -C $(LIBFTDIR)
+	
+$(NAME): $(LIBFT) $(OBJECTS)
 	cp $(LIBFT) $(NAME)
 	$(AR) $(NAME) $(OBJECTS) $(LIBFT)
 
-$(LIBFT):
-	$(MAKE) -C ./Libft
-
 %.o: %.c 
-	$(CC) $(CFLAGS) -c -o $@ $^ -I ./Libft
+	$(CC) $(CFLAGS) -c -o $@ $^ -I $(LIBFTDIR)
 clean: 
-	$(MAKE) clean - C ./Libft
+	$(MAKE) clean -C $(LIBFTDIR)
 	$(RM) $(OBJECTS)
 
 fclean: clean
-	$(MAKE) fclean -C ./Libft
+	$(MAKE) fclean -C $(LIBFTDIR)
 	$(RM) $(NAME)
 re:
 	fclean all
 
-.PHONY: all clean fclean re libft
+.PHONY: all clean fclean re
