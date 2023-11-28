@@ -6,7 +6,7 @@
 #    By: edribeir <edribeir@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/11/21 09:47:58 by edribeir      #+#    #+#                  #
-#    Updated: 2023/11/27 19:25:53 by edribeir      ########   odam.nl          #
+#    Updated: 2023/11/28 12:20:49 by edribeir      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,7 @@ AR = ar -rsc
 
 SOURCE = ft_printf.c \
 			ft_print_hex.c \
-			ft_print_unsigned.c \
-		
+			ft_source.c \
 
 OBJECTS = $(SOURCE:%.c=%.o)
 
@@ -40,7 +39,7 @@ $(NAME): $(LIBFT) $(OBJECTS)
 	cp $(LIBFT) $(NAME)
 	$(AR) $(NAME) $(OBJECTS) $(LIBFT)
 
-%.o: %.c 
+%.o:%.c 
 	$(CC) $(CFLAGS) -c -o $@ $^ -I $(LIBFTDIR)
 clean: 
 	$(MAKE) clean -C $(LIBFTDIR)
@@ -49,7 +48,7 @@ clean:
 fclean: clean
 	$(MAKE) fclean -C $(LIBFTDIR)
 	$(RM) $(NAME)
-re:
-	fclean all
+
+re: fclean all
 
 .PHONY: all clean fclean re

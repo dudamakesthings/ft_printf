@@ -6,7 +6,7 @@
 /*   By: edribeir <edribeir@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 09:47:11 by edribeir      #+#    #+#                 */
-/*   Updated: 2023/11/27 18:49:50 by edribeir      ########   odam.nl         */
+/*   Updated: 2023/11/28 12:11:11 by edribeir      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
 
 int	ft_utoa(unsigned int nb);
 int	ft_ithex(unsigned int n, char const *format);
-int	ft_pointhex(unsigned long n, char *hex);
+int	ft_pointhex(unsigned long n);
+int	ft_putchar_i(int ch);
+int	ft_putstr_i(char *s);
+int	ft_putnb_i(int n);
 int	ft_printf(const char *format, ...);
 
 #endif

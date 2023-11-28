@@ -6,32 +6,11 @@
 /*   By: edribeir <edribeir@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 09:48:24 by edribeir      #+#    #+#                 */
-/*   Updated: 2023/11/27 19:29:58 by edribeir      ########   odam.nl         */
+/*   Updated: 2023/11/28 11:59:04 by edribeir      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static int	ft_format(va_list args, const char *format)
-{
-	int		counter;
-	char	*s;
-
-	counter = 0;
-	if (*format == 's')
-	{
-		s = va_arg(args, char *);
-		ft_putstr_fd(s, 1);
-		counter = ft_strlen(s);
-	}
-	else if (*format == 'u')
-		counter = counter + ft_utoa(va_arg(args, unsigned int));
-	else if (*format == 'X' | *format == 'x')
-		counter = counter + ft_ithex((va_arg(args, int)), format);
-	else if (*format == 'p')
-		counter += ft_pointhex(va_arg(args, unsigned long), "0123456789abcdef");
-	return (counter);
-}
 
 static int	ft_format_printf(va_list args, const char *format)
 {
@@ -44,15 +23,17 @@ static int	ft_format_printf(va_list args, const char *format)
 		counter++;
 	}
 	else if (*format == 'c')
-	{
-		ft_putchar_fd((va_arg(args, int)), 1);
-		counter++;
-	}
+		counter += ft_putchar_i(va_arg(args, int));
 	else if (*format == 'd' | *format == 'i')
-	{
-		ft_putnbr_fd((va_arg(args, int)), 1);
-		counter++;
-	}
+		counter += ft_putnb_i(va_arg(args, int));
+	else if (*format == 's')
+		counter += ft_putstr_i(va_arg(args, char *));
+	else if (*format == 'u')
+		counter = counter + ft_utoa(va_arg(args, unsigned int));
+	else if (*format == 'X' | *format == 'x')
+		counter = counter + ft_ithex((va_arg(args, int)), format);
+	else if (*format == 'p')
+		counter += ft_pointhex(va_arg(args, unsigned long));
 	return (counter);
 }
 
@@ -62,6 +43,8 @@ int	ft_printf(const char *format, ...)
 	int		counter;
 
 	counter = 0;
+	if (!format)
+		return (0);
 	va_start(args, format);
 	while (*format != '\0')
 	{
@@ -69,7 +52,6 @@ int	ft_printf(const char *format, ...)
 		{
 			format++;
 			counter = counter + ft_format_printf(args, format);
-			counter = counter + ft_format(args, format);
 		}
 		else
 		{
@@ -81,7 +63,6 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (counter);
 }
-
 
 // int main()
 // {

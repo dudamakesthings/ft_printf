@@ -1,16 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_print_unsigned.c                                :+:    :+:            */
+/*   ft_source.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: edribeir <edribeir@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/11/23 11:01:25 by edribeir      #+#    #+#                 */
-/*   Updated: 2023/11/27 15:01:29 by edribeir      ########   odam.nl         */
+/*   Created: 2023/11/28 10:31:39 by edribeir      #+#    #+#                 */
+/*   Updated: 2023/11/28 11:57:43 by edribeir      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_putchar_i(int ch)
+{
+	ft_putchar_fd(ch, 1);
+	return (1);
+}
+
+int	ft_putstr_i(char *s)
+{
+	if (!s)
+		s = "(null)";
+	ft_putstr_fd(s, 1);
+	return (ft_strlen(s));
+}
+
+int	ft_putnb_i(int n)
+{
+	char	*str_nb;
+	int		len;
+
+	str_nb = ft_itoa(n);
+	len = ft_putstr_i(str_nb);
+	free(str_nb);
+	return (len);
+}
 
 static	int	nb_len(unsigned int nb)
 {
@@ -46,13 +71,7 @@ int	ft_utoa(unsigned int nb)
 		str_number[len] = (nb % 10) + '0';
 		nb = nb / 10;
 	}
-	ft_putstr_fd(str_number, 1);
-	str_len = ft_strlen(str_number);
+	str_len = ft_putstr_i(str_number);
 	free(str_number);
 	return (str_len);
 }
-
-// int main ()
-// {
-// 	printf("\n%d", ft_utoa(123));
-// }

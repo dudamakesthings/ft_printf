@@ -6,7 +6,7 @@
 /*   By: edribeir <edribeir@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/22 13:25:58 by edribeir      #+#    #+#                 */
-/*   Updated: 2023/11/27 18:49:12 by edribeir      ########   odam.nl         */
+/*   Updated: 2023/11/28 12:04:09 by edribeir      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	nb_long(unsigned long n)
 	int	count;
 
 	count = 0;
-	while (n > 0)
+	while (n != 0)
 	{
 		n = n / 16;
 		count++;
@@ -30,53 +30,54 @@ int	ft_ithex(unsigned int n, char const *format)
 	char			*hex;
 	unsigned int	len;
 	char			*hex_base;
-	unsigned int	counter;
 
 	if (*format == 'X')
 		hex_base = "0123456789ABCDEF";
 	else if (*format == 'x')
 		hex_base = "0123456789abcdef";
-	len = nb_long(n);
-	hex = (char *)malloc((len + 1) * sizeof(char));
-	if (hex == NULL)
-		return (0);
-	hex[len] = '\0';
-	while (n > 0)
+	if (n == 0)
+		return (ft_putchar_i('0'));
+	else
 	{
-		len--;
-		hex[len] = hex_base[n % 16];
-		n = n / 16;
+		len = nb_long(n);
+		hex = (char *)ft_calloc((len + 1), sizeof(char));
+		while (n > 0)
+		{
+			len--;
+			hex[len] = hex_base[n % 16];
+			n = n / 16;
+		}
+		len = ft_putstr_i(hex);
+		free(hex);
 	}
-	ft_putstr_fd(hex, 1);
-	counter = ft_strlen(hex);
-	free(hex);
-	return (counter);
+	return (len);
 }
 
-int	ft_pointhex(unsigned long n, char *hex)
+int	ft_pointhex(unsigned long n)
 {
-	unsigned int	len_n;
+	unsigned long	len_n;
 	char			*str_phex;
+	char			*hex;
 
-	len_n = nb_long(n) + 2;
-	str_phex = malloc((len_n + 1) * sizeof(char));
-	if (str_phex == NULL)
-		return (0);
+	hex = "0123456789abcdef";
 	if (n == 0)
+		return (ft_putstr_i("(nil)"));
+	else
 	{
-		ft_putstr_fd("nil", 1);
-		return (ft_strlen("nil"));
+		len_n = nb_long(n) + 2;
+		str_phex = malloc((len_n + 1) * sizeof(char));
+		if (str_phex == NULL)
+			return (0);
+		str_phex[0] = '0';
+		str_phex[1] = 'x';
+		str_phex[len_n] = '\0';
+		while (n > 0)
+		{
+			str_phex[--len_n] = hex[n % 16];
+			n = n / 16;
+		}
+		len_n = ft_putstr_i(str_phex);
+		free(str_phex);
 	}
-	str_phex[0] = '0';
-	str_phex[1] = 'x';
-	str_phex[len_n] = '\0';
-	while (n > 0)
-	{
-		str_phex[--len_n] = hex[n % 16];
-		n = n / 16;
-	}
-	ft_putstr_fd(str_phex, 1);
-	len_n = ft_strlen(str_phex);
-	free(str_phex);
 	return (len_n);
 }
