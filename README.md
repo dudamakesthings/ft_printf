@@ -1,4 +1,4 @@
-# ft_printf
+# 🖨️ ft_printf
 Recode the printf function. A project from the rank 1 of Codam
 
 _Used the man printf.3 and man stdarg as reference to do the project_
@@ -15,3 +15,9 @@ The printf function needs to work with this conditions:
 - `%X` Prints a number in hexadecimal (base 16) uppercase format.
 - `%%` Prints a percent sign.
 
+---
+### 🧪 Testers
+
+Used this test to check my project (thanks to the creator!), and small my test into main function ([ft_printf.c](https://github.com/dudamakesthings/ft_printf/blob/main/ft_printf.c)).
+
+* [Francinette - Xicodomingues](https://github.com/xicodomingues/francinette)
