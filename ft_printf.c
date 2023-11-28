@@ -6,7 +6,7 @@
 /*   By: edribeir <edribeir@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 09:48:24 by edribeir      #+#    #+#                 */
-/*   Updated: 2023/11/28 11:59:04 by edribeir      ########   odam.nl         */
+/*   Updated: 2023/11/28 14:08:57 by edribeir      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	ft_printf(const char *format, ...)
 		{
 			format++;
 			counter = counter + ft_format_printf(args, format);
+			if (*format == '\0')
+				return (-1);
 		}
 		else
 		{
@@ -64,18 +66,18 @@ int	ft_printf(const char *format, ...)
 	return (counter);
 }
 
-// int main()
-// {
-// 	char *p = "string";
-// 	// ft_printf("%c%c%d%c\n", 'a', 'b', 3, '%');
-// 	// ft_printf("%c%c%d%s\n", 'a', 'b', 3, "bla");
-// 	// ft_printf("ble%c%c%i%sbla%%%u\n", 'a', 'b', 120, "foo", 5151);
-// 	// ft_printf("%%\n");
-// 	// printf("ble%c%c%i%sbla%%%u\n", 'a', 'b', 120, "foo", 5151);
-// 	// printf("%%\n");
-// 	// printf("%d\n", printf("hello"));
-// 	// printf("%d\n", ft_printf("hello"));
-// 	int  original = printf("%p\n", &p);
-// 	int my_len = ft_printf("%p\n", &p);
-// 	printf("%d, %d", original, my_len);
-// }
+int main()
+{
+	char *p = "string";
+	// ft_printf("%c%c%d%c\n", 'a', 'b', 3, '%');
+	// ft_printf("%c%c%d%s\n", 'a', 'b', 3, "bla");
+	// ft_printf("ble%c%c%i%sbla%%%u\n", 'a', 'b', 120, "foo", 5151);
+	// ft_printf("%%\n");
+	// printf("ble%c%c%i%sbla%%%u\n", 'a', 'b', 120, "foo", 5151);
+	// printf("%%\n");
+	// printf("%d\n", printf("hello"));
+	// printf("%d\n", ft_printf("hello"));
+	// int  original = printf("%p\n %\0 ujruiturtiyut", &p);
+	// int my_len = ft_printf("%p\n %\0 ujruiturtiyut", &p);
+	// printf("%d, %d", original, my_len);
+}
