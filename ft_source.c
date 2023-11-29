@@ -6,7 +6,7 @@
 /*   By: edribeir <edribeir@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/28 10:31:39 by edribeir      #+#    #+#                 */
-/*   Updated: 2023/11/28 11:57:43 by edribeir      ########   odam.nl         */
+/*   Updated: 2023/11/29 11:50:05 by edribeir      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	ft_putchar_i(int ch)
 {
-	ft_putchar_fd(ch, 1);
-	return (1);
+	if (write(1, &ch, 1) == -1)
+		return (-1);
+	else
+		return (1);
 }
 
 int	ft_putstr_i(char *s)
@@ -32,7 +34,14 @@ int	ft_putnb_i(int n)
 	int		len;
 
 	str_nb = ft_itoa(n);
+	if (!str_nb)
+		return (-1);
 	len = ft_putstr_i(str_nb);
+	if (len == -1)
+	{
+		free(str_nb);
+		return (-1);
+	}
 	free(str_nb);
 	return (len);
 }

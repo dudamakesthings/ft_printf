@@ -6,7 +6,7 @@
 /*   By: edribeir <edribeir@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/21 09:48:24 by edribeir      #+#    #+#                 */
-/*   Updated: 2023/11/28 14:12:14 by edribeir      ########   odam.nl         */
+/*   Updated: 2023/11/29 11:58:33 by edribeir      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ static int	ft_format_printf(va_list args, const char *format)
 	int	counter;
 
 	counter = 0;
-	if (*format == '%')
-	{
-		ft_putchar_fd('%', 1);
-		counter++;
-	}
+	if (*format == '\0')
+		return (-1);
+	else if (*format == '%')
+		counter += ft_putchar_i('%');
 	else if (*format == 'c')
 		counter += ft_putchar_i(va_arg(args, int));
 	else if (*format == 'd' | *format == 'i')
@@ -41,6 +40,7 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	int		counter;
+	int		verification;
 
 	counter = 0;
 	if (!format)
@@ -51,15 +51,14 @@ int	ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			counter = counter + ft_format_printf(args, format);
-			if (*format == '\0')
+			verification = ft_format_printf(args, format);
+			if (verification > -1)
+				counter = counter + verification;
+			else
 				return (-1);
 		}
 		else
-		{
-			ft_putchar_fd(*format, 1);
-			counter++;
-		}
+			counter += ft_putchar_i(*format);
 		format++;
 	}
 	va_end(args);
@@ -71,13 +70,22 @@ int	ft_printf(const char *format, ...)
 // 	char *p = "string";
 	// ft_printf("%c%c%d%c\n", 'a', 'b', 3, '%');
 	// ft_printf("%c%c%d%s\n", 'a', 'b', 3, "bla");
-	// ft_printf("ble%c%c%i%sbla%%%u\n", 'a', 'b', 120, "foo", 5151);
+	// ft_printf("ble%c%c%i%sbla%%%x\n", 'a', 'b', 120, "foo", 5151);
 	// ft_printf("%%\n");
-	// printf("ble%c%c%i%sbla%%%u\n", 'a', 'b', 120, "foo", 5151);
+	// ft_printf("ble%c%c%i%sbla%%%X\n", 'a', 'b', 120, "foo", 5151);
 	// printf("%%\n");
 	// printf("%d\n", printf("hello"));
 	// printf("%d\n", ft_printf("hello"));
-	// int  original = printf("%p\n %\0 ujruiturtiyut", &p);
-	// int my_len = ft_printf("%p\n %\0 ujruiturtiyut", &p);
+	// int  original = printf("%\0 ujruiturtiyut");
+	// int my_len = ft_printf("%\0 ujruiturtiyut");
 	// printf("%d, %d", original, my_len);
+	// int original = printf("%%%");
+	// int my_len = ft_printf("%%%");
+	// printf("this is original %d,this is my %d", original, my_len);
+	// int original = printf("%p", NULL);
+	// int my_len = ft_printf("%p", NULL);
+	// printf("this is original %d,this is my %d", original, my_len);
+	// int original = printf("%c\n", 0);
+	// int my_len = ft_printf("%c\n", 0);
+// 	printf("this is original %d,this is my %d", original, my_len);
 // }
