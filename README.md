@@ -18,6 +18,6 @@ The printf function needs to work with this conditions:
 ---
 ### 🧪 Testers
 
-Used this test to check my project (thanks to the creator!), and small my test into main function ([ft_printf.c](https://github.com/dudamakesthings/ft_printf/blob/main/ft_printf.c)).
+Used this test to check my project (thanks to the creator!), and my small test into main function ([main.c](https://github.com/dudamakesthings/ft_printf/blob/main/main.c)).
 
 * [Francinette - Xicodomingues](https://github.com/xicodomingues/francinette)
